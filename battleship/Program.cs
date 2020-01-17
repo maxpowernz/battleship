@@ -33,7 +33,7 @@ Remember: please do your working on this page and ensure all code is your own, n
         const int maxCols = 8;
         const int maxRows = 8;
 
-        static readonly bool debug = false;
+        static readonly bool debug = true;
 
         static Ship sunkenShip;
 
@@ -45,7 +45,12 @@ Remember: please do your working on this page and ensure all code is your own, n
             Console.ResetColor();
             Ships.Clear();
             PlaceShips();
-            ShowShipLocation();
+
+            if(debug)
+            {
+               ShowShipLocation();
+            }
+
             MakeGuess(0);
         }
 
@@ -154,6 +159,8 @@ Remember: please do your working on this page and ensure all code is your own, n
 
             if (debug)
             {
+                Console.ResetColor();
+                Console.WriteLine("(set debug to false to hide this)");
                 Console.WriteLine($"closest ship: {matchedShip.ShipName}");
                 Console.WriteLine("proximity: " + closestMatch);
             }
@@ -182,20 +189,19 @@ Remember: please do your working on this page and ensure all code is your own, n
                 {
                     //negate counter so we get another ship
                     i--;
-                }
-                
+                }        
             }         
         }
 
         static void ShowShipLocation()
         {
-            Console.WriteLine("Ship locations");
+            Console.WriteLine("Ship locations (set debug to false to hide this)");
             Ships.ForEach(ship => Console.WriteLine($"{ship.Row} {ship.Col} {ship.ShipName}"));
         }
 
         static void Main(string[] args)
         {
-          
+
             StartGame();
             Console.ResetColor();
             Console.WriteLine("Press enter to exit");
