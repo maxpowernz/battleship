@@ -28,7 +28,7 @@ Remember: please do your working on this page and ensure all code is your own, n
     {
         // Properties
         const int maxShips = 2;
-        static int maxTrys = 4;
+        static int maxTrys = 20;
 
         const int maxCols = 8;
         const int maxRows = 8;
@@ -69,10 +69,8 @@ Remember: please do your working on this page and ensure all code is your own, n
 
             Console.WriteLine($"Turns left {maxTrys-tryNum}, Number of ships left: {Ships.Count()}");
 
-
             Console.Write("Enter Row: ");
             int inputRow = int.Parse(Console.ReadLine());
-
 
             Console.Write("Enter column: ");
             int inputCol = int.Parse(Console.ReadLine());
@@ -113,7 +111,7 @@ Remember: please do your working on this page and ensure all code is your own, n
             int closestMatch = maxRows * maxCols;
             Ship matchedShip = new Ship();
 
-            //check ship is a match
+            //check ship is a match and return if true
             foreach (var ship in Ships)
             {
                 if(ship.Row == inputRow && ship.Col == inputCol)
@@ -124,6 +122,7 @@ Remember: please do your working on this page and ensure all code is your own, n
                 }       
             }
 
+            //find the closest match
             foreach(var ship in Ships)
             {  
                 int proximity = Math.Abs(ship.Row - inputRow) + Math.Abs(ship.Col - inputCol);
