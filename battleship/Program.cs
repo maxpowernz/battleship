@@ -26,7 +26,7 @@ Remember: please do your working on this page and ensure all code is your own, n
     {
         // Properties
         const int maxShips = 2;
-        static readonly int maxTrys = 20;
+        static readonly int maxTrys = 5;
         const int maxCols = 8;
         const int maxRows = 8;
         static readonly bool debug = true;
@@ -61,6 +61,7 @@ Remember: please do your working on this page and ensure all code is your own, n
                 {
                     StartGame();
                 }
+                Environment.Exit(-1);
                 return;
             }
 
@@ -90,6 +91,7 @@ Remember: please do your working on this page and ensure all code is your own, n
                 {
                     StartGame();
                 }
+                Environment.Exit(-1);
                 return;
             }
 
