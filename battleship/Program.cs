@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BattleShip
 {
@@ -28,37 +26,31 @@ Remember: please do your working on this page and ensure all code is your own, n
     {
         // Properties
         const int maxShips = 2;
-        static int maxTrys = 20;
-
+        static readonly int maxTrys = 20;
         const int maxCols = 8;
         const int maxRows = 8;
-
         static readonly bool debug = true;
-
         static Ship sunkenShip;
+        static readonly List<Ship> Ships = new List<Ship>();
 
-        static List<Ship> Ships = new List<Ship>();
-
-     
         static void StartGame()
         {
             Console.ResetColor();
             Ships.Clear();
             PlaceShips();
 
-            if(debug)
+            if (debug)
             {
-               ShowShipLocation();
+                ShowShipLocation();
             }
 
             MakeGuess(0);
         }
 
-
         static void MakeGuess(int tryNum)
         {
 
-            if(tryNum == maxTrys)
+            if (tryNum == maxTrys)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Game Over :(");
@@ -66,13 +58,13 @@ Remember: please do your working on this page and ensure all code is your own, n
                 Console.ResetColor();
                 Console.WriteLine("Play again? (y/n)");
                 if (Console.ReadLine().ToLower() == "y")
-                {                    
+                {
                     StartGame();
                 }
                 return;
             }
 
-            Console.WriteLine($"Turns left {maxTrys-tryNum}, Number of ships left: {Ships.Count()}");
+            Console.WriteLine($"Turns left {maxTrys - tryNum}, Number of ships left: {Ships.Count()}");
 
             Console.Write("Enter Row: ");
             int inputRow = int.Parse(Console.ReadLine());
@@ -89,7 +81,7 @@ Remember: please do your working on this page and ensure all code is your own, n
                 Console.WriteLine();
             }
 
-            if(Ships.Count == 0)
+            if (Ships.Count == 0)
             {
                 Console.WriteLine("You win!");
                 Console.ResetColor();
@@ -106,7 +98,6 @@ Remember: please do your working on this page and ensure all code is your own, n
                 Console.ResetColor();
                 MakeGuess(tryNum + 1);
             }
-                            
         }
 
 
@@ -119,32 +110,32 @@ Remember: please do your working on this page and ensure all code is your own, n
             //check ship is a match and return if true
             foreach (var ship in Ships)
             {
-                if(ship.Row == inputRow && ship.Col == inputCol)
-                {                  
+                if (ship.Row == inputRow && ship.Col == inputCol)
+                {
                     Ships.Remove(ship);
                     sunkenShip = ship;
-                    return true;            
-                }       
+                    return true;
+                }
             }
 
             //find the closest match
-            foreach(var ship in Ships)
-            {  
+            foreach (var ship in Ships)
+            {
                 int proximity = Math.Abs(ship.Row - inputRow) + Math.Abs(ship.Col - inputCol);
 
-                if(proximity <= closestMatch)
+                if (proximity <= closestMatch)
                 {
                     closestMatch = proximity;
                     matchedShip = ship;
-                }           
+                }
 
             }
-            
+
             if (closestMatch <= 2)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Your hot");
-                
+
             }
             else if (closestMatch <= 3)
             {
@@ -167,7 +158,7 @@ Remember: please do your working on this page and ensure all code is your own, n
 
             Console.WriteLine();
             return false;
-            
+
         }
 
 
@@ -177,20 +168,20 @@ Remember: please do your working on this page and ensure all code is your own, n
 
             for (int i = 1; i <= maxShips; i++)
             {
-                int randomRow = random.Next(1, maxRows+1);
-                int randomCol = random.Next(1, maxCols+1);
+                int randomRow = random.Next(1, maxRows + 1);
+                int randomCol = random.Next(1, maxCols + 1);
 
                 //check thers no ship already in there
                 if (Ships.Where(s => s.Row == randomRow && s.Col == randomCol).Count() == 0)
                 {
-                    Ships.Add(new Ship() { Row = randomRow, Col = randomCol, ShipName="Ship: "+i });
+                    Ships.Add(new Ship() { Row = randomRow, Col = randomCol, ShipName = "Ship: " + i });
                 }
                 else
                 {
                     //negate counter so we get another ship
                     i--;
-                }        
-            }         
+                }
+            }
         }
 
         static void ShowShipLocation()
